@@ -1,40 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject pipePrefab;
     public float maxOffset = 4f;
     public float timeBtwSpawns = 2f;
-    float timeTillSpawn = 0;
-    int score = 0;
-    public static GameManager instance;
+    private float _timeTillSpawn;
+    private int _score;
+    public static GameManager Instance;
     public TMPro.TMP_Text scoreText;
-    // Start is called before the first frame update
-    void Start()
+    
+    private void Start()
     {
         Screen.SetResolution(1080, 1920, true);
-        instance = this;
-        timeTillSpawn = timeBtwSpawns;
+        Instance = this;
+        _timeTillSpawn = timeBtwSpawns;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        timeTillSpawn -= Time.deltaTime;
-        if (timeTillSpawn <= 0)
-        {
-            timeTillSpawn = timeBtwSpawns;
-            Instantiate(pipePrefab, new Vector3(pipePrefab.transform.position.x, Random.Range(-maxOffset, maxOffset), 0), Quaternion.identity);
-        }
+        _timeTillSpawn -= Time.deltaTime;
+        if (!(_timeTillSpawn <= 0)) return;
+        _timeTillSpawn = timeBtwSpawns;
+        Instantiate(pipePrefab, new Vector3(pipePrefab.transform.position.x, Random.Range(-maxOffset, maxOffset), 0), Quaternion.identity);
     }
 
     public void AddScore()
     {
-        score++;
-        scoreText.text = score.ToString();
+        _score++;
+        scoreText.text = _score.ToString();
     }
 }

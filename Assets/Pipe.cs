@@ -19,7 +19,7 @@ public class Pipe : MonoBehaviour
         transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
         if (transform.position.x <= -0.5f && !isScored)
         {
-            GameManager.instance.AddScore();
+            GameManager.Instance.AddScore();
             isScored = true;
             source.Play();
         }
